@@ -202,7 +202,7 @@ ul.rating {
 /* The Close Button */
 .close {
 
-  float: none;
+  float: right;
   color: #f1f1f1;
   font-size: 40px;
   font-weight: bold;

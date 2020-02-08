@@ -1,26 +1,5 @@
 var myApp = angular.module('myApp', ['ui.bootstrap', 'infinite-scroll'])
-myApp.directive('starRating', function () {
-  return {
-    restrict: 'A',
-    template: '<ul class="rating">' +
-      '<li ng-repeat="star in stars" ng-class="star">' +
-      '\u2605' +
-      '</li>' +
-      '</ul>',
-    scope: {
-      ratingValue: '=',
-      max: '='
-    },
-    link: function (scope, elem, attrs) {
-      scope.stars = [];
-      for (var i = 0; i < scope.max; i++) {
-        scope.stars.push({
-          filled: i < scope.ratingValue
-        });
-      }
-    }
-  }
-});
+
 
 myApp.controller('MovieController', ["$scope", "imdbService", function ($scope, imdbService) {
   var paramObj = {};
@@ -76,40 +55,30 @@ myApp.controller('MovieController', ["$scope", "imdbService", function ($scope, 
     };
     fetchSelectedMovieData(paramObj);
   };
+
   $scope.fetchDetails = function () {
-    if ($scope.omdbSearch.$valid) {
+ 
       $scope.putLoader = true;
       $scope.details = null;
       $scope.posters = [];
-      if ($scope.searchBy == 'Title') {
+    
         paramObj = {
-          s: $scope.search,
+          s: 'Don',
         };
-        if ($scope.Year != undefined && $scope.Year != '') {
-          paramObj.y = $scope.Year;
-        }
-        if ($scope.Type != undefined && $scope.Type != '') {
-          paramObj.type = $scope.Type;
-        }
-      }
-      else {
-        paramObj = {
-          i: $scope.search
-
-        };
-        if ($scope.Year != undefined && $scope.Year != '') {
-          paramObj.y = $scope.Year;
-        }
-        if ($scope.Type != undefined && $scope.Type != '') {
-          paramObj.type = $scope.Year;
-        }
-      }
+       
+      
+    
       fetch(paramObj);
-    } else {
-      $scope.submitted = true;
-    }
+    
 
   }
+  $scope.openModal = function () {
+
+   
+    $('#myEditModal').modal('toggle');
+  }
+
+  $scope.fetchDetails();
 
   var pageCount = 1;
 
