@@ -1,0 +1,42 @@
+<body ng-controller="Controller">
+  <div class="align-body container">
+    <div class="header-select-caption">
+      <h2>Select Caption</h2>
+    </div>
+    <div>
+      <div class="table-responsive table-flex my-custom-scrollbar-select-caption table-wrapper-scroll-y">
+        <table class="table table-condensed">
+          <tbody>
+            <tr ng-repeat="player in teamPreview">
+              <td><img id="myImg" ng-src="{{player.team.jersey_photo}}">
+                <b class="text-font" style="margin-left: 25px;">{{player.name}}</b>
+                <p class="text-align2">{{player.team.name_attr}}-W - BAT</p>
+              </td>
+              <td>{{player.last_series_score}}</td>
+              <td><button type="button" ng-click="setCaption(player,'C')"
+                  ng-class="{'caption-button-color' : player.caption == true}" class="btn btn-info btn-circle btn-lg">
+                  <div class="v-btn__content">C</div>
+                </button></td>
+              <td>
+                <button type="button" ng-click="setCaption(player,'VC')"
+                  ng-class="{'caption-button-color' : player.viceCaption == true}"
+                  class="btn btn-info btn-circle btn-lg">
+                  <div class="v-btn__content">VC</div>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="footer-button">
+        <div>
+          <button type="button" class="btn team-preview-button" ng-click="openPreview()">TEAM PREVIEW</button>
+        </div>
+        <div>
+          <button type="button" class="btn continue-button" ng-class="{'save-button-color' :saveTeam == true }"
+            ng-click="addTeamScreen()">SAVE TEAM</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

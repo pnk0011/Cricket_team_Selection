@@ -1,0 +1,341 @@
+<html ng-app="app">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+
+
+</head>
+<style>
+  .button {
+    background-color: #f5f5f5;
+    border: none;
+    color: black;
+
+    text-align: center;
+    font-size: 16px;
+
+    opacity: 0.6;
+    transition: 0.3s;
+    display: inline-block;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    opacity: 1;
+    background-color: lightblue;
+  }
+
+  .header {
+    padding: 10px 16px;
+    background: #555;
+    color: #f1f1f1;
+    z-index: 9999;
+  }
+
+  .sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+  }
+
+  /* The radio */
+  .radio {
+
+    display: block;
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+  }
+
+  /* Hide the browser's default radio button */
+  .radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* Create a custom radio button */
+  .checkround {
+
+    position: absolute;
+    top: 6px;
+    left: 0;
+    height: 15px;
+    width: 15px;
+    background-color: #fff;
+    border-color: #A9A9A9;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 50%;
+  }
+
+
+  /* When the radio button is checked, add a blue background */
+  .radio input:checked~.checkround {
+    background-color: #fff;
+  }
+
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checkround:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the indicator (dot/circle) when checked */
+  .radio input:checked~.checkround:after {
+    display: block;
+  }
+
+  /* Style the indicator (dot/circle) */
+  .radio .checkround:after {
+    left: 1px;
+    top: 1px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #3498db;
+  }
+</style>
+
+<body ng-controller="Controller">
+  <div class="header" id="Doctorfixit">
+    <h2>ForRent.com</h2>
+  </div>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li class="active">
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" style="width: 130px; margin-top: 7px;" type="button"
+              id="menu1" data-toggle="dropdown">Filters
+              <span class="caret"></span></button>
+            <button type="button" class="btn btn-default" ng-click="clearSearchValues()"
+              style="margin-top: 8px;width: 100px;">Clear</button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" style="width: 850px ">
+              <form>
+                <li role="presentation">
+                  <h4 style="color:#3498db;margin-left: 22px;"><b> Rent Range </b></h4>
+                  <div class="form-group row" style="margin-left: 7px;">
+                    <div class="col-md-4">
+                      <input type="text" class="form-control" name="watch" placeholder="Min." ng-change="setMinRange()"
+                        ng-model="MINRENT">
+                    </div>
+                    <div class="col-md-4">
+                      <input type="text" class="form-control" name="watch" placeholder="Max." ng-change="setMaxRange()"
+                        ng-model="MAXRENT">
+                    </div>
+                  </div>
+                </li>
+                <li role="presentation" class="divider"></li>
+                <li role="presentation">
+                  <h4 style="color:#3498db;margin-left: 22px;"><b> Beds </b></h4>
+                  <div class="col-md-12 row form-group">
+                    <div class="col-md-6">
+                      <label class="radio">All Beds
+                        <input type="radio" checked="checked" ng-change="setBed()" name="beds" value=0 ng-model="BEDS">
+                        <span class="checkround"></span>
+                      </label>
+                      <label class="radio">1 Bed
+                        <input type="radio" name="beds" ng-change="setBed()" value=1 ng-model="BEDS">
+                        <span class="checkround"></span>
+                      </label>
+                      <label class="radio">3 Beds
+                        <input type="radio" name="beds" ng-change="setBed()" value=3 ng-model="BEDS">
+                        <span class="checkround"></span>
+                      </label>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="radio">Studio
+                        <input type="radio" name="beds" ng-change="setBed()" value="STUDIO" ng-model="BEDS">
+                        <span class="checkround"></span>
+                      </label>
+                      <label class="radio">2 Beds
+                        <input type="radio" name="beds" ng-change="setBed()" value=2 ng-model="BEDS">
+                        <span class="checkround"></span>
+                      </label>
+                      <label class="radio">4+ Beds
+                        <input type="radio" name="beds" ng-change="setBed()" value=4 ng-model="BEDS">
+                        <span class="checkround"></span>
+                      </label>
+                    </div>
+                  </div>
+                </li>
+                <li role="presentation">
+                  <h4 style="color:#3498db;margin-left: 22px;"><b> Baths </b></h4>
+                  <div class="col-md-12 row form-group">
+                    <div class="col-md-6">
+                      <label class="radio">All Baths
+                        <input type="radio" name="baths" value=0 ng-change="setBath()" ng-model="BATH">
+                        <span class="checkround"></span>
+                      </label>
+                      <label class="radio">2+ Baths
+                        <input type="radio" name="baths" ng-change="setBath()" value=2 ng-model="BATH">
+                        <span class="checkround"></span>
+                      </label>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="radio">1+ Baths
+                        <input type="radio" name="baths" ng-change="setBath()" value=1 ng-model="BATH">
+                        <span class="checkround"></span>
+                      </label>
+                      <label class="radio">3+ Baths
+                        <input type="radio" name="baths" ng-change="setBath()" value=3 ng-model="BATH">
+                        <span class="checkround"></span>
+                      </label>
+                    </div>
+                  </div>
+                </li>
+                <li> <button type="button" class="btn btn-primary pull-right " data-toggle="dropdown"
+                    style="margin-top: 8px;width: 100px;margin-right: 5px">Done</button>
+                  <button type="button" class="btn btn-default pull-right" ng-click="clearSearchValues()"
+                    style="margin-top: 8px;width: 100px;margin-right: 5px">Clear</button>
+                </li>
+              </form>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="form-group row">
+      <div class="col-md-4 col-sm-4"
+        ng-repeat="pro in proData |  filter:greaterThan('price',MINRENTVAL) | filter:lessThan('price',MAXRENTVAL) | filter:{bath:BATHVAL} | filter:{beds:BEDSVAL}  as npro"
+        style="margin-top: 5px;">
+        <div class="card">
+          <img class="card-img-top" src={{pro.property_images[0]}} alt="Card image" width="290px" height="290px">
+          <div class="card-body">
+            <h4 class="card-title" style="color:#3498db">{{pro.landlord_name?pro.landlord_name:'NA'}}</h4>
+            <h5 class="card-title"><b>{{pro.address}}</b></h5>
+            <h5 class="card-title"><b> {{pro.beds}} Beds,{{pro.bath}} Baths | {{pro.currency}}{{pro.price}}</b></h5>
+            <button type="button" class="btn btn-primary btn-default" style="margin-top: 8px;width: 120px;">Email
+              Property</button>
+            <button type="button" class="btn btn-default"
+              style="margin-top: 8px;width: 120px;">{{pro.phoneNumber?pro.phoneNumber:'NA'}}</button>
+          </div>
+        </div>
+      </div>
+      <h3 ng-if="npro.length === 0" style="MARGIN-LEFT: 41%;MARGIN-TOP: 15%;"> No Record Found !!!</p>
+    </div>
+  </div>
+</body>
+
+<script >
+angular.module('app', [])
+  .controller('Controller', ['$scope', '$http', function ($scope, $http) {
+
+    window.onscroll = function () { myFunction() };
+
+    var header = document.getElementById("Doctorfixit");
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+      if (window.pageYOffset > sticky) {
+        header.classList.add("sticky");
+      } else {
+        header.classList.remove("sticky");
+      }
+    }
+
+    $scope.getData = function () {
+
+      var auth = 'dGVzdHVzZXI6dGVzdHBhc3N3b3Jk';
+
+      var config = {
+        headers: {
+
+          "Authorization": "Basic " + auth,
+
+        }
+      };
+
+      $http.get("https://sandoratest-service.herokuapp.com/api/property/quickView?long=-121.88632860000001&lat=37.3382082&distance=100&userId=null", config)
+        .then(function (response) {
+          $scope.proData = response.data.data;
+          console.log('resonse from git API : ' + JSON.stringify(response.data));
+
+        })
+        .catch(function (data) {
+
+          $scope.proData = [];
+         
+
+        });
+    }
+
+    $scope.getData();
+    $scope.MINRENTVAL = 0;
+    $scope.MAXRENTVAL = 9999999;
+
+    $scope.setMinRange = function () {
+      $scope.MINRENTVAL = $scope.MINRENT;
+    }
+
+    $scope.setMaxRange = function () {
+      $scope.MAXRENTVAL = $scope.MAXRENT;
+    }
+
+
+    $scope.clearSearchValues = function () {
+      $scope.BEDSVAL = '';
+      $scope.BEDS = '';
+      $scope.BATHVAL = '';
+      $scope.BATH = '';
+      $scope.MINRENT = '';
+      $scope.MAXRENT = '';
+      $scope.MINRENTVAL = 0;
+      $scope.MAXRENTVAL = 9999999;
+    }
+    $scope.BEDSVAL = '';
+    $scope.setBed = function () {
+      if ($scope.BEDS == 0) {
+        $scope.BEDSVAL = '';
+      } else {
+        $scope.BEDSVAL = $scope.BEDS;
+      }
+    }
+    $scope.BATHVAL = '';
+    $scope.setBath = function () {
+      if ($scope.BATH == 0) {
+        $scope.BATHVAL = '';
+      } else {
+        $scope.BATHVAL = $scope.BATH;
+      }
+    }
+
+
+    $scope.greaterThan = function (prop, val) {
+      return function (item) {
+        if (item[prop] >= val) return true;
+      }
+    }
+
+    $scope.lessThan = function (prop, val) {
+      return function (item) {
+        if (item[prop] <= val) return true;
+      }
+    }
+
+
+
+  }]);
+
+
+
+
+</script>
+
+</html>

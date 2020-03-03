@@ -1,0 +1,38 @@
+<body>
+  <div class="header">
+    <h2>Select Team</h2>
+  </div>
+  <div class="align-body container1 ">
+    <div style="background-image: url('https://www.fanspole.com/_nuxt/img/ec0e23b.svg');height: 80%;padding-top: 40px;">
+      <div ng-if="proceedContinue == false">
+        <div class="team-preview">
+          No Team Created
+        </div>
+        <div class="join-contest">
+          Create your team to join contest
+        </div>
+      </div>
+      <div class="card" ng-if="proceedContinue == true" ng-click="openPreview()">
+        <div class="containerr1">
+          <h4><b>Team: 1</b></h4>
+          <div class="row">
+            <div class="col-md-2 col-sm-2" ng-repeat="player in teamPreview"
+              ng-if="player.caption == true || player.viceCaption == true ">
+              <span class="caption-sapn" ng-if="player.caption == true"><b>C</b></span>
+              <span class="caption-sapn" ng-if="player.viceCaption == true"><b>VC</b></span>
+              <img ng-src="{{player.team.jersey_photo}}" style="width: 44px; height: 44px;">
+              <p><b>{{player.name}}</b></p>
+            </div>
+          </div>
+          <hr>
+          <span ng-repeat="player in teamPreview" style="font-size: 9pt;font-family: Montserrat,sans-serif!important;">
+            {{player.name}} , &nbsp;
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex-container">
+    <button type="button" class="btn btn-primary select-new-team-button" ng-click="addNewTeam()">Add New Team</button>
+  </div>
+</body>

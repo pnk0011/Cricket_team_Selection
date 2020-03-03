@@ -1,0 +1,96 @@
+<body ng-controller="Controller">
+  <div class="align-body container">
+    <div class="header-create-team">
+      <h2>Create Team</h2>
+    </div>
+    <div class="flex-container2">
+      <div>
+        <p class="font8"> Players</p>
+        <p class="align-center"><b>{{selectedPlayerCount}}</b>/11</p>
+      </div>
+      <div><b>Ind-w Vs Pak-w</b></div>
+      <div>
+        <p class="font8">Credit Left</p>
+        <b>
+          <p class="align-center">{{creditScoreLeft}}</p>
+        </b>
+      </div>
+    </div>
+    <div class="div-border">
+      <ul class="nav  nav-sapce-around">
+        <li><a data-toggle="pill" ng-click="createTeamTabs('WK')">WK</a></li>
+        <li><a data-toggle="pill" ng-click="createTeamTabs('BAT')">BAT</a></li>
+        <li><a data-toggle="pill" ng-click="createTeamTabs('AR')">AR</a></li>
+        <li><a data-toggle="pill" ng-click="createTeamTabs('BOWL')">BOWL</a></li>
+      </ul>
+      <div>
+        <h5 class="align-center"><b> PICK MIN 1 WICKET-KEEPER <span data-toggle="modal" data-target="#ruleModal"
+              class="glyphicon glyphicon-info-sign info-glfy"></span></b></h5>
+      </div>
+      <div class="table-responsive table-flex my-custom-scrollbar  table-wrapper-scroll-y">
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th class="font8">PLAYERS</th>
+              <th class="font8">POINTS</th>
+              <th class="font8">CREDITS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="player in respodaata.players  | filter : myFilter">
+              <td><img id="myImg" ng-src="{{player.team.jersey_photo}}">
+                <b class="text-font" style="margin-left: 25px;">{{player.name}}</b>
+                <p class="text-align2">{{player.team.name_attr}}-W </p>
+              </td>
+              <td>{{player.last_series_score}}</td>
+              <td>{{player.value}}</td>
+              <td>
+                <span ng-if="player.selected == false || player.selected == undefined "
+                  class="glyphicon glyphicon-plus-sign glyphicon  green" ng-click="callMe(player)"></span>
+                <span ng-if="player.selected == true" class="glyphicon glyphicon-minus-sign red"
+                  ng-click="callMe(player)"></span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="footer-button">
+        <div>
+          <button type="button" class="btn team-preview-button" ng-click="openPreview()">TEAM PREVIEW</button>
+        </div>
+        <div>
+          <button type="button" ng-click="addCaption()" class="btn continue-button"
+            ng-class="{'continue-button-color' : proceedContinue == true}">CONTINUE</button>
+        </div>
+      </div>
+      <div class="modal fade" id="ruleModal" role="dialog">
+        <div class="modal-dialog modal-md">
+          <div class="modal-content">
+            <div class="modal-body">
+              <h4> Rules</h4>
+              <ul>
+                <li ng-class="{'rule-text-color': selectedPlayerCount >= 11}">Select 11 players</li>
+                <li ng-class="{'rule-text-color': selectedPlayerArr['BAT'] >= 4}">Minimum 4 Batsmen</li>
+                <li ng-class="{'rule-text-color': selectedPlayerArr['WK'] >= 1}"> 1 Wicket Keeper</li>
+                <li ng-class="{'rule-text-color': selectedPlayerArr['AR'] >= 1}"> Atleast 1 All-rounder</li>
+                <li ng-class="{'rule-text-color': selectedPlayerArr['BOWL'] >= 2}"> Atleast 2 Bowlers</li>
+                <li ng-class="{'rule-text-color': selectedPlayerArr['AR'] + selectedPlayerArr['BOWL']  >= 5}"> Total no
+                  of Bowlers + All-Rounders should be at least 5</li>
+                <li
+                  ng-class="{'rule-text-color': selectedPlayerArr['WK'] <= 1 || selectedPlayerArr['WK'] ==  undefined}">
+                  You can not select 2 pure Wicket Keepers. If your team has 2 or more Batting Wicket Keeper one will be
+                  consider as
+                  wicket-keeper and other(s) will be consider as batsman.</li>
+              </ul>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</body>

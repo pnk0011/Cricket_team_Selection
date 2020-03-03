@@ -1,7 +1,7 @@
 {
-     "name": "omdb-api-angularjs",
+     "name": "fanspole",
      "version": "1.0.0",
-     "description": "omdb-api-angularjs",
+     "description": "fanspole",
      "dependencies": {
           "express": "^4.17.1"
      },

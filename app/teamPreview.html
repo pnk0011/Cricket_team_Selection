@@ -1,0 +1,29 @@
+<body ng-controller="Controller">
+  <div class="align-body container1 ">
+    <div style="background-image: url('https://www.fanspole.com/_nuxt/img/ec0e23b.svg');min-height: 99%">
+      <div class="team-preview-screen">
+        PREVIEW
+      </div>
+      <div class="col-md-12 col-sm-12">
+        <div class="col-md-4" ng-repeat="player in teamPreview">
+          <div style="margin-bottom: 10px; height: 100px;">
+            <div style="z-index: -5;" class="img-center">
+              <span class="caption-sapn" ng-if="player.caption == true"><b>C</b></span>
+              <span class="caption-sapn" ng-if="player.viceCaption == true"><b>VC</b></span>
+              <img ng-src="{{player.team.jersey_photo}}" style="width: 44px; height: 44px;">
+            </div>
+            <div class="white--text font7 box_shadow fontw600"
+              style="min-width: 66px; padding: 1px; background-color: rgb(201, 50, 12);">
+              {{player.name}}
+            </div>
+            <div class="white--text font8-preview fontw600 pa-0">
+              <span><b>{{player.value}} Cr</b></span> </div>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <button type="button" class="btn team-preview-button-screen" ng-click="goback()">CLOSE PREVIEW</button>
+      </div>
+    </div>
+  </div>
+</body>
